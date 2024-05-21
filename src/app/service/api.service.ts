@@ -8,10 +8,10 @@ import { Observable } from 'rxjs';
 export class ApiService {
   constructor(private http: HttpClient) {}
 
-  newsApiUrl: string =
-    ' https://newsapi.org/v2/top-headlines?country=us&apiKey=ff60dd9700074b3a80829465ba3d2d99';
-  techNewsApiUrl: string =
-    ' https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=ff60dd9700074b3a80829465ba3d2d99';
+  private newsApiUrl: string =
+    'https://newsapi.org/v2/top-headlines?country=us&apiKey=ff60dd9700074b3a80829465ba3d2d99';
+  private techNewsApiUrl: string =
+    'https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=ff60dd9700074b3a80829465ba3d2d99';
 
   topHeading(): Observable<any> {
     return this.http.get(this.newsApiUrl);
