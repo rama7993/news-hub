@@ -1,22 +1,33 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  constructor(private http: HttpClient) {}
+  baseUrl!: string;
+  apiKey!: string;
 
-  private newsApiUrl: string =
-    'https://newsapi.org/v2/top-headlines?country=us&apiKey=ff60dd9700074b3a80829465ba3d2d99';
-  private techNewsApiUrl: string =
-    'https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=ff60dd9700074b3a80829465ba3d2d99';
+  constructor(private http: HttpClient) {
+    this.baseUrl = environment.baseURL;
+    this.apiKey = environment.apiKey;
+  }
 
   topHeading(): Observable<any> {
-    return this.http.get(this.newsApiUrl);
+    const params = new HttpParams()
+      .set('q', 'bitcoin')
+      .set('apiKey', this.apiKey);
+
+    return this.http.get(`${this.baseUrl}/everything`, { params });
   }
+
   technews(): Observable<any> {
-    return this.http.get(this.techNewsApiUrl);
+    const params = new HttpParams()
+      .set('category', 'general')
+      .set('apiKey', this.apiKey);
+
+    return this.http.get(`${this.baseUrl}/top-headlines`, { params });
   }
 }
