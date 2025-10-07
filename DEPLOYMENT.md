@@ -2,67 +2,59 @@
 
 ## 🚀 Deploy NewsHub to GitHub Pages
 
-### **CORS Issue Fixed! ✅**
+### **CORS Solution: Chrome Extension**
 
-The app now handles CORS issues properly:
+Since GNews API has CORS restrictions, users need to install a Chrome extension for production.
 
-- **Development**: Uses Angular proxy (`/api` → `https://gnews.io/api/v4`)
-- **Production**: Uses CORS proxy service (`https://api.allorigins.win/raw?url=https://gnews.io/api/v4`)
+## 📋 Deployment Steps:
 
-### **Quick Deployment Steps:**
-
-1. **Build for Production:**
-
-   ```bash
-   ng build --configuration production
-   ```
-
-   This builds with CORS proxy for production.
-
-2. **Deploy using angular-cli-ghpages:**
-   ```bash
-   npm install -g angular-cli-ghpages
-   npx angular-cli-ghpages --dir=dist/newshub
-   ```
-
-### **One-Command Deployment:**
+### 1. **Build for Production:**
 
 ```bash
-npm run deploy
+ng build --configuration production
 ```
 
-### **Manual Steps:**
+### 2. **Deploy to GitHub Pages:**
 
-1. **Build:**
+```bash
+npx angular-cli-ghpages --dir=dist/newshub
+```
 
-   ```bash
-   ng build --configuration production
-   ```
+### 3. **For Users - Install CORS Extension:**
 
-2. **Deploy:**
-   ```bash
-   npx angular-cli-ghpages --dir=dist/newshub
-   ```
+**Option A - Chrome Extension:**
 
-### **Configuration Details:**
+1. Go to Chrome Web Store
+2. Search for "CORS Unblock" or "CORS"
+3. Install any CORS extension
+4. Enable it for your GitHub Pages site
+5. Refresh the page
 
-- **Development**: Uses proxy configuration (`proxy.conf.json`)
-- **Production**: Uses CORS proxy service
-- **Base href**: `/newshub/` (configured in `angular.json`)
+**Option B - Firefox:**
 
-### **URL Structure:**
+1. Open Firefox
+2. Type `about:config` in address bar
+3. Search for `security.fileuri.strict_origin_policy`
+4. Set it to `false`
+5. Restart Firefox
 
-- **Repository**: `https://github.com/rama7993/newshub`
-- **Live Site**: `https://rama7993.github.io/newshub/`
+## 🔧 Configuration:
 
-### **CORS Solution:**
+- **Base href**: `/newshub/` (configured)
+- **API**: Direct GNews API calls
+- **CORS**: Handled by browser extension
 
-The app now works in production because:
+## 📱 Live Site:
 
-1. **Development**: Angular proxy bypasses CORS
-2. **Production**: CORS proxy service handles cross-origin requests
-3. **No more CORS errors** in GitHub Pages! 🎉
+- **URL**: `https://rama7993.github.io/newshub/`
+- **Note**: Users need CORS extension to use the app
+
+## ⚠️ Important:
+
+- **Development**: Works without extensions
+- **Production**: Requires CORS extension
+- **Alternative**: Deploy to server with CORS proxy
 
 ---
 
-**Note**: CORS issues are now resolved for both development and production!
+**Simple Solution**: Tell users to install a CORS Chrome extension!
