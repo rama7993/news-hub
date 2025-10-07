@@ -21,27 +21,40 @@
                   formControlName="query"
                   class="form-control form-control-lg"
                   placeholder="Search for news..."
-                  [class.is-invalid]="searchForm.get('query')?.invalid && searchForm.get('query')?.touched"
+                  [class.is-invalid]="
+                    searchForm.get('query')?.invalid &&
+                    searchForm.get('query')?.touched
+                  "
                 />
-                <div *ngIf="searchForm.get('query')?.invalid && searchForm.get('query')?.touched" class="invalid-feedback">
-                  <div *ngIf="searchForm.get('query')?.errors?.['required']">Search query is required</div>
-                  <div *ngIf="searchForm.get('query')?.errors?.['minlength']">Search query must be at least 2 characters</div>
+                <div
+                  *ngIf="
+                    searchForm.get('query')?.invalid &&
+                    searchForm.get('query')?.touched
+                  "
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="searchForm.get('query')?.errors?.['required']">
+                    Search query is required
+                  </div>
+                  <div *ngIf="searchForm.get('query')?.errors?.['minlength']">
+                    Search query must be at least 2 characters
+                  </div>
                 </div>
               </div>
-              
+
               <div class="col-md-4">
                 <div class="d-flex gap-2">
-                  <button 
-                    type="submit" 
+                  <button
+                    type="submit"
                     class="btn btn-primary btn-lg flex-grow-1"
                     [disabled]="searchForm.invalid || loading"
                   >
                     <i class="fas fa-search me-1" [class.fa-spin]="loading"></i>
-                    {{ loading ? 'Searching...' : 'Search' }}
+                    {{ loading ? "Searching..." : "Search" }}
                   </button>
-                  
-                  <button 
-                    type="button" 
+
+                  <button
+                    type="button"
                     class="btn btn-outline-secondary btn-lg"
                     (click)="clearSearch()"
                     [disabled]="loading"
@@ -69,37 +82,43 @@
           <div class="row g-3">
             <div class="col-md-4">
               <label for="category" class="form-label">Category</label>
-              <select 
-                id="category" 
-                [(ngModel)]="selectedCategory" 
+              <select
+                id="category"
+                [(ngModel)]="selectedCategory"
                 (change)="onCategoryChange()"
                 class="form-select"
               >
-                <option *ngFor="let category of categories" [value]="category.value">
+                <option
+                  *ngFor="let category of categories"
+                  [value]="category.value"
+                >
                   {{ category.label }}
                 </option>
               </select>
             </div>
-            
+
             <div class="col-md-4">
               <label for="country" class="form-label">Country</label>
-              <select 
-                id="country" 
-                [(ngModel)]="selectedCountry" 
+              <select
+                id="country"
+                [(ngModel)]="selectedCountry"
                 (change)="onCountryChange()"
                 class="form-select"
               >
-                <option *ngFor="let country of countries" [value]="country.value">
+                <option
+                  *ngFor="let country of countries"
+                  [value]="country.value"
+                >
                   {{ country.label }}
                 </option>
               </select>
             </div>
-            
+
             <div class="col-md-4">
               <label class="form-label">&nbsp;</label>
               <div>
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   class="btn btn-outline-warning"
                   (click)="clearFilters()"
                   [disabled]="loading"
@@ -127,9 +146,19 @@
   <div *ngIf="error && !loading" class="alert alert-danger text-center">
     <i class="fas fa-exclamation-triangle me-2"></i>
     Failed to load news. Please try again.
-    <button class="btn btn-outline-danger btn-sm ms-2" (click)="loadNewsByFilters()">
+    <button
+      class="btn btn-outline-danger btn-sm ms-2"
+      (click)="loadNewsByFilters()"
+    >
       Retry
     </button>
+    <div class="mt-2">
+      <small class="text-muted">
+        <i class="fas fa-info-circle me-1"></i>
+        <strong>CORS Issue?</strong> Install a CORS Chrome extension or use
+        Firefox with CORS disabled.
+      </small>
+    </div>
   </div>
 
   <!-- News Results -->
@@ -138,8 +167,12 @@
       <h4 class="mb-0">
         <span *ngIf="hasSearched; else filterTitle">Search Results</span>
         <ng-template #filterTitle>
-          <span *ngIf="selectedCategory; else countryTitle">{{ selectedCategory | titlecase }} News</span>
-          <ng-template #countryTitle>Top Headlines - {{ selectedCountry | uppercase }}</ng-template>
+          <span *ngIf="selectedCategory; else countryTitle"
+            >{{ selectedCategory | titlecase }} News</span
+          >
+          <ng-template #countryTitle
+            >Top Headlines - {{ selectedCountry | uppercase }}</ng-template
+          >
         </ng-template>
         <span class="badge bg-info ms-2">{{ searchResults.length }}</span>
       </h4>
@@ -149,7 +182,10 @@
       <div class="col-lg-4 col-md-6 mb-4" *ngFor="let article of searchResults">
         <div class="card h-100 shadow-sm news-card">
           <div class="position-relative">
-            <div *ngIf="article.urlToImage; else noImage" class="shimmer-wrapper">
+            <div
+              *ngIf="article.urlToImage; else noImage"
+              class="shimmer-wrapper"
+            >
               <img
                 [src]="article.urlToImage"
                 [alt]="article.title"
@@ -159,25 +195,33 @@
               />
             </div>
             <ng-template #noImage>
-              <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+              <div
+                class="card-img-top bg-light d-flex align-items-center justify-content-center"
+                style="height: 200px"
+              >
                 <i class="fas fa-image text-muted fa-3x"></i>
               </div>
             </ng-template>
             <div class="position-absolute top-0 end-0 m-2">
-              <span class="badge" [ngClass]="hasSearched ? 'bg-info' : 'bg-primary'">
-                {{ hasSearched ? 'Search' : (selectedCategory || 'News') }}
+              <span
+                class="badge"
+                [ngClass]="hasSearched ? 'bg-info' : 'bg-primary'"
+              >
+                {{ hasSearched ? "Search" : selectedCategory || "News" }}
               </span>
             </div>
           </div>
-          
+
           <div class="card-body d-flex flex-column">
             <h5 class="card-title">{{ article.title }}</h5>
             <p class="card-text text-muted flex-grow-1">
-              {{ article.description || 'No description available' }}
+              {{ article.description || "No description available" }}
             </p>
-            
+
             <div class="mt-auto">
-              <div class="d-flex justify-content-between align-items-center mb-2">
+              <div
+                class="d-flex justify-content-between align-items-center mb-2"
+              >
                 <small class="text-muted">
                   <i class="fas fa-calendar-alt me-1"></i>
                   {{ formatDate(article.publishedAt) }}
@@ -187,18 +231,21 @@
                   {{ article.source.name }}
                 </small>
               </div>
-              
+
               <div class="d-flex gap-2">
-                <a 
-                  [href]="article.url" 
-                  target="_blank" 
+                <a
+                  [href]="article.url"
+                  target="_blank"
                   class="btn btn-primary btn-sm flex-grow-1"
                   rel="noopener noreferrer"
                 >
                   <i class="fas fa-external-link-alt me-1"></i>
                   Read More
                 </a>
-                <button class="btn btn-outline-secondary btn-sm" title="Bookmark">
+                <button
+                  class="btn btn-outline-secondary btn-sm"
+                  title="Bookmark"
+                >
                   <i class="fas fa-bookmark"></i>
                 </button>
               </div>
@@ -212,7 +259,9 @@
     <div *ngIf="searchResults.length === 0" class="text-center py-5">
       <i class="fas fa-newspaper fa-3x text-muted mb-3"></i>
       <h4 class="text-muted">No news found</h4>
-      <p class="text-muted">Try adjusting your filters or search for different keywords.</p>
+      <p class="text-muted">
+        Try adjusting your filters or search for different keywords.
+      </p>
     </div>
   </div>
 </div>
