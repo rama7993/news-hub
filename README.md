@@ -1,27 +1,104 @@
-# Api
+# NewsHub - Simple News Application
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.0.
+A clean, modern Angular news application powered by GNews API.
 
-## Development server
+## 🚀 Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- **Top Headlines** - Latest news from India
+- **Technology News** - Tech updates and innovations
+- **Sports News** - Sports coverage and updates
+- **Business News** - Business and financial news
+- **Health News** - Health and medical news
+- **Advanced Search** - Search with filters by category and country
+- **Responsive Design** - Works on all devices
+- **Modern UI** - Clean, professional interface
 
-## Code scaffolding
+## 🛠️ Quick Setup
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### 1. Get GNews API Key (Free)
+- Visit: https://gnews.io/
+- Sign up for free account
+- Get your API key (100 free requests/day)
 
-## Build
+### 2. Configure API Key
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Update `src/environments/environment.ts`:
+```typescript
+export const environment = {
+  production: false,
+  gnewsApiKey: 'YOUR_ACTUAL_GNEWS_API_KEY_HERE', // Replace this
+  gnewsBaseUrl: 'https://gnews.io/api/v4',
+  defaultCountry: 'in',
+  defaultLanguage: 'en',
+  pageSize: 20,
+};
+```
 
-## Running unit tests
+Update `src/environments/environment.prod.ts`:
+```typescript
+export const environment = {
+  production: true,
+  gnewsApiKey: 'YOUR_ACTUAL_GNEWS_API_KEY_HERE', // Replace this
+  gnewsBaseUrl: 'https://gnews.io/api/v4',
+  defaultCountry: 'in',
+  defaultLanguage: 'en',
+  pageSize: 20,
+};
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### 3. Install and Run
 
-## Running end-to-end tests
+```bash
+cd "d:\Angular-Practise\news-api"
+npm install
+ng serve
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Open: http://localhost:4200
 
-## Further help
+## 📱 Available Routes
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- `/` or `/home` - Top Headlines
+- `/tech` - Technology News
+- `/sports` - Sports News
+- `/business` - Business News
+- `/health` - Health News
+- `/search` - Advanced Search
+
+## 🔧 API Configuration
+
+- **Single API**: GNews API only
+- **Production Ready**: Works in both development and production
+- **CORS Support**: No CORS issues
+- **Reliable**: Stable API with good uptime
+
+## 🚀 Deployment
+
+```bash
+ng build --prod
+```
+
+Deploy the `dist/` folder to any hosting platform (Vercel, Netlify, etc.).
+
+## ✅ Ready to Use!
+
+The application is now configured with a single, reliable API that works in both local development and production environments.
+
+## 📊 API Limits
+
+- **Free Tier**: 100 requests/day
+- **Paid Plans**: Available for higher limits
+- **No CORS Issues**: Works in production
+
+## 🎨 Features
+
+- **Modern Card Design**: Hover effects and smooth animations
+- **Loading States**: Beautiful shimmer effects
+- **Error Handling**: User-friendly error messages
+- **Responsive**: Mobile-first design
+- **Fast**: Optimized performance
+- **Clean Code**: Well-structured TypeScript
+
+---
+
+**Note**: This application uses only GNews API for simplicity and reliability. No complex fallback mechanisms needed!

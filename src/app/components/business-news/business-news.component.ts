@@ -1,33 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService, NewsArticle } from '../service/api.service';
+import { ApiService, NewsArticle } from '../../service/api.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  selector: 'app-business-news',
+  templateUrl: './business-news.component.html',
+  styleUrls: ['./business-news.component.css'],
 })
-export class HomeComponent implements OnInit {
-  topHeadingDisplay: NewsArticle[] = [];
+export class BusinessNewsComponent implements OnInit {
+  businessNews: NewsArticle[] = [];
   loading = true;
   error = false;
 
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
-    this.loadTopHeadlines();
+    this.loadBusinessNews();
   }
 
-  loadTopHeadlines(): void {
+  loadBusinessNews(): void {
     this.loading = true;
     this.error = false;
 
-    this.apiService.getTopHeadlines().subscribe({
+    this.apiService.getNewsByCategory('business').subscribe({
       next: (response) => {
-        this.topHeadingDisplay = response.articles;
+        this.businessNews = response.articles;
         this.loading = false;
       },
       error: (error) => {
-        console.error('Error loading top headlines:', error);
+        console.error('Error loading business news:', error);
         this.error = true;
         this.loading = false;
       },

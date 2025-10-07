@@ -1,33 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService, NewsArticle } from '../service/api.service';
+import { ApiService, NewsArticle } from '../../service/api.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  selector: 'app-sports-news',
+  templateUrl: './sports-news.component.html',
+  styleUrls: ['./sports-news.component.css'],
 })
-export class HomeComponent implements OnInit {
-  topHeadingDisplay: NewsArticle[] = [];
+export class SportsNewsComponent implements OnInit {
+  sportsNews: NewsArticle[] = [];
   loading = true;
   error = false;
 
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
-    this.loadTopHeadlines();
+    this.loadSportsNews();
   }
 
-  loadTopHeadlines(): void {
+  loadSportsNews(): void {
     this.loading = true;
     this.error = false;
 
-    this.apiService.getTopHeadlines().subscribe({
+    this.apiService.getNewsByCategory('sports').subscribe({
       next: (response) => {
-        this.topHeadingDisplay = response.articles;
+        this.sportsNews = response.articles;
         this.loading = false;
       },
       error: (error) => {
-        console.error('Error loading top headlines:', error);
+        console.error('Error loading sports news:', error);
         this.error = true;
         this.loading = false;
       },
