@@ -6,6 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "build:github": "ng build --base-href /newshub/",
+    "build:prod": "ng build --configuration production",
+    "deploy": "ng build --configuration production && npx angular-cli-ghpages --dir=dist/newshub",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

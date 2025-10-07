@@ -2,49 +2,67 @@
 
 ## 🚀 Deploy NewsHub to GitHub Pages
 
+### **CORS Issue Fixed! ✅**
+
+The app now handles CORS issues properly:
+
+- **Development**: Uses Angular proxy (`/api` → `https://gnews.io/api/v4`)
+- **Production**: Uses CORS proxy service (`https://api.allorigins.win/raw?url=https://gnews.io/api/v4`)
+
 ### **Quick Deployment Steps:**
 
-1. **Build for GitHub Pages:**
+1. **Build for Production:**
+
    ```bash
-   npm run build:github
-   ```
-   This builds with the correct base href for GitHub Pages.
-
-2. **Deploy the dist folder:**
-   - Copy the contents of `dist/newshub/` folder
-   - Push to your GitHub repository
-   - Enable GitHub Pages in repository settings
-
-### **Alternative Method:**
-
-1. **Build normally:**
-   ```bash
-   ng build
+   ng build --configuration production
    ```
 
-2. **The build already includes the correct base href** (`/newshub/`) configured in:
-   - `angular.json` (baseHref: "/newshub/")
-   - `src/index.html` (base href="/newshub/")
+   This builds with CORS proxy for production.
 
-### **GitHub Pages Configuration:**
+2. **Deploy using angular-cli-ghpages:**
+   ```bash
+   npm install -g angular-cli-ghpages
+   npx angular-cli-ghpages --dir=dist/newshub
+   ```
 
-- **Source**: Deploy from a branch
-- **Branch**: `main` (or your default branch)
-- **Folder**: `/` (root) or `/docs` (if using docs folder)
+### **One-Command Deployment:**
+
+```bash
+npm run deploy
+```
+
+### **Manual Steps:**
+
+1. **Build:**
+
+   ```bash
+   ng build --configuration production
+   ```
+
+2. **Deploy:**
+   ```bash
+   npx angular-cli-ghpages --dir=dist/newshub
+   ```
+
+### **Configuration Details:**
+
+- **Development**: Uses proxy configuration (`proxy.conf.json`)
+- **Production**: Uses CORS proxy service
+- **Base href**: `/newshub/` (configured in `angular.json`)
 
 ### **URL Structure:**
+
 - **Repository**: `https://github.com/rama7993/newshub`
 - **Live Site**: `https://rama7993.github.io/newshub/`
 
-### **Troubleshooting:**
+### **CORS Solution:**
 
-If you still get 404 errors:
-1. Make sure the base href is `/newshub/`
-2. Ensure all files are in the correct directory structure
-3. Check that GitHub Pages is enabled and pointing to the right branch/folder
+The app now works in production because:
 
-### **Files to Deploy:**
-Deploy the contents of `dist/newshub/` folder to your repository root or docs folder.
+1. **Development**: Angular proxy bypasses CORS
+2. **Production**: CORS proxy service handles cross-origin requests
+3. **No more CORS errors** in GitHub Pages! 🎉
 
 ---
-**Note**: The application is now configured with the correct base href for GitHub Pages deployment!
+
+**Note**: CORS issues are now resolved for both development and production!
